@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Georgia&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Georgia", serif;
+  --font-sans: "Georgia", serif;
+  
+  --color-bg: #140d0b;
+  --color-ink: #f5f2ed;
+  --color-gold: #d4af37;
+  --color-accent: #8b0000;
+  --color-glass: rgba(255, 255, 255, 0.05);
+
+  --color-identity: #a78bfa;
+  --color-bond: #fb7185;
+  --color-comm: #34d399;
+  --color-balance: #fbbf24;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(circle at 70% 20%, #2d1b16 0%, transparent 50%),
+              radial-gradient(circle at 20% 80%, #1a1a2e 0%, transparent 60%),
+              radial-gradient(circle at 50% 50%, #140d0b 0%, #000 100%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
+
+.memory-overlay {
+  background: radial-gradient(circle at center, rgba(167, 139, 250, 0.05) 0%, transparent 100%);
+  backdrop-filter: sepia(30%) blur(2px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2); 
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.2); 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.4); 
+}
