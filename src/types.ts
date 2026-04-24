@@ -16,7 +16,7 @@ export interface Character {
   abilityDesc: string;
   baseStats: BaseStats;
   tasks: string[];
-  themeColor: string; // Tailwind class like 'bg-jade' or custom color
+  themeColor: string; // Hex or CSS color string used for character accents
 }
 
 export interface Choice {
@@ -35,6 +35,7 @@ export interface GameEvent {
   title: string;
   description: string;
   isMemoryEcho?: boolean; // Changes UI presentation to memory style
+  isBossStage?: boolean;
   characterId: string; // Filter events by character, or 'all'
   worldId: string;
   choices: Choice[];

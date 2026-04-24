@@ -1,11 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Georgia&display=swap');
 @import "tailwindcss";
 
-@theme {
-  --font-serif: "Georgia", serif;
-  --font-sans: "Georgia", serif;
-  
+:root {
+  --font-sans: "Manrope", sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --color-black: #000;
+  --color-white: #fff;
+
+  --spacing: 0.25rem;
+
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+  --container-4xl: 56rem;
+
+  --text-sm: 0.875rem;
+  --text-sm--line-height: calc(1.25 / 0.875);
+  --text-base: 1rem;
+  --text-base--line-height: 1.5;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --text-xl: 1.25rem;
+  --text-xl--line-height: calc(1.75 / 1.25);
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: calc(2 / 1.5);
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 1.2;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: calc(2.5 / 2.25);
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 1;
+  --text-6xl: 3.75rem;
+  --text-6xl--line-height: 1;
+  --text-7xl: 4.5rem;
+  --text-7xl--line-height: 1;
+
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  --default-font-family: var(--font-sans);
+  --default-mono-font-family: var(--font-mono);
+  --default-transition-duration: 0.15s;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
   --color-bg: #140d0b;
+  --color-bg-soft: #221410;
+  --color-panel: rgba(28, 19, 15, 0.82);
+  --color-panel-strong: rgba(20, 13, 11, 0.92);
   --color-ink: #f5f2ed;
   --color-gold: #d4af37;
   --color-accent: #8b0000;
@@ -17,49 +58,118 @@
   --color-balance: #fbbf24;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: #140d0b;
+  font-size: 18px;
+}
+
 body {
+  min-height: 100vh;
+  margin: 0;
   background-color: var(--color-bg);
   color: var(--color-ink);
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   overflow-x: hidden;
   position: relative;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 body::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: radial-gradient(circle at 70% 20%, #2d1b16 0%, transparent 50%),
-              radial-gradient(circle at 20% 80%, #1a1a2e 0%, transparent 60%),
-              radial-gradient(circle at 50% 50%, #140d0b 0%, #000 100%);
-  opacity: 0.8;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.08), transparent 25%),
+    radial-gradient(circle at 80% 18%, rgba(121, 72, 47, 0.28), transparent 30%),
+    radial-gradient(circle at 50% 90%, rgba(31, 40, 78, 0.38), transparent 38%),
+    linear-gradient(180deg, #221410 0%, #140d0b 55%, #090606 100%);
+  opacity: 1;
   pointer-events: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 120px 120px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 85%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-serif);
 }
 
-.memory-overlay {
-  background: radial-gradient(circle at center, rgba(167, 139, 250, 0.05) 0%, transparent 100%);
-  backdrop-filter: sepia(30%) blur(2px);
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
 }
 
-/* Custom scrollbar */
+a {
+  color: inherit;
+}
+
+::selection {
+  background: rgba(212, 175, 55, 0.22);
+}
+
+.app-shell {
+  width: min(1280px, calc(100vw - 32px));
+  margin: 0 auto;
+}
+
+.panel {
+  background: var(--color-panel);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
+}
+
+.panel-strong {
+  background: var(--color-panel-strong);
+}
+
+.memory-overlay {
+  background:
+    radial-gradient(circle at top, rgba(167, 139, 250, 0.12), transparent 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 40%);
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.2); 
+  background: rgba(0, 0, 0, 0.2);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.2); 
+  background: rgba(212, 175, 55, 0.24);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(212, 175, 55, 0.4); 
+  background: rgba(212, 175, 55, 0.45);
 }

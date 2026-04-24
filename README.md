@@ -1,20 +1,36 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Joy Luck Journey
 
-# Run and deploy your AI Studio app
+A narrative choice game inspired by *The Joy Luck Club*. Each playable arc follows one daughter through five worlds of family pressure, memory, identity, and difficult decisions.
 
-This contains everything you need to run your app locally.
+## Local Development
 
-View your app in AI Studio: https://ai.studio/apps/a76087d4-2486-4046-8178-0e6e01182a2a
+Prerequisites:
 
-## Run Locally
+- Node.js 20+
 
-**Prerequisites:**  Node.js
+Run locally:
 
+1. Install dependencies with `npm install`.
+2. Copy `.env.example` to `.env.local`.
+3. Set `GEMINI_API_KEY` if you plan to use Gemini-powered features later.
+4. Start the dev server with `npm run dev`.
+5. Open [http://localhost:3000](http://localhost:3000).
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Scripts
+
+- `npm run dev` starts the Vite dev server on port `3000`.
+- `npm run lint` runs TypeScript type-checking.
+- `npm run build` creates a production build in `dist`.
+- `npm run clean` removes the `dist` folder.
+
+## Project Structure
+
+- `src/gameData.ts` contains characters, worlds, and story events.
+- `src/gameLogic.ts` centralizes progression, stat updates, gated choices, and ending summaries.
+- `src/components/` contains the character select screen, in-game UI, and outcome screens.
+
+## Current Focus
+
+- Expand and refine the remaining character arcs.
+- Continue improving visual polish and responsiveness.
+- Add more reactive story logic tied to stats and memory unlocks.

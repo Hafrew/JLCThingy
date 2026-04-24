@@ -1,62 +1,119 @@
-import React, { useState } from 'react';
-import { GameState, Character, GameEvent, Choice } from '../types';
-import { CHARACTERS, WORLDS, EVENTS } from '../gameData';
-import { ArrowRight, BookOpen, Heart, User, MessagesSquare, Globe, ArrowLeft, RotateCcw, Sparkles } from 'lucide-react';
-import { cn } from '../lib/utils';
+import { CSSProperties } from 'react';
+import { ArrowRight, Sparkles } from 'lucide-react';
+import { CHARACTERS } from '../gameData';
+import { Character } from '../types';
 
-export default function CharacterSelect({ 
-  onSelect 
-}: { 
-  onSelect: (character: Character) => void 
-}) {
+interface CharacterSelectProps {
+  onSelect: (character: Character) => void;
+}
+
+export default function CharacterSelect({ onSelect }: CharacterSelectProps) {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 sm:p-12 relative z-10 font-serif">
-      <div className="absolute top-8 left-0 w-full text-center">
-         <h2 className="text-[12px] uppercase tracking-[2px] text-[#d4af37] font-bold mb-1">A Narrative Survival Game</h2>
-      </div>
-
-      <div className="max-w-5xl w-full z-10 text-center">
-        <h1 className="text-5xl sm:text-[60px] mb-4 font-normal text-[#d4af37]">Joy Luck Journey</h1>
-        <p className="max-w-2xl mx-auto text-[20px] text-white/80 font-serif italic mb-12 sm:mb-20">
-          Navigate a journey of identity, culture, and self-understanding. Choose whose story to walk.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-left">
-          {CHARACTERS.map((char) => (
-            <div 
-              key={char.id}
-              onClick={() => onSelect(char)}
-              className="group cursor-pointer bg-[var(--color-glass)] border border-white/10 rounded-[12px] p-[30px] backdrop-blur-[10px] shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:bg-[#d4af37]/10 hover:border-[#d4af37] transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full"
-            >
-              <div className="w-[80px] h-[80px] mx-auto mb-[20px] border-2 border-[#d4af37] rounded-full p-[3px] bg-gradient-to-tr from-[#d4af37] to-transparent flex shrink-0">
-                 <div className="w-full h-full rounded-full bg-[#2a1a15] flex items-center justify-center text-[28px] text-[#d4af37] font-serif">
-                   {char.name[0]}
-                 </div>
-              </div>
-              
-              <h3 className="text-[20px] font-serif text-white font-bold mb-2 text-center">{char.name}</h3>
-              <p className="text-[10px] text-[#d4af37] uppercase tracking-[1.5px] mb-4 text-center">{char.role}</p>
-              
-              <p className="text-white/70 text-[14px] mb-6 flex-grow leading-[1.6]">
-                {char.description}
+    <div className="relative z-10 min-h-screen px-4 py-8 text-white sm:px-6 lg:px-10">
+      <div className="app-shell flex min-h-[calc(100vh-4rem)] flex-col justify-center gap-10 lg:gap-14">
+        <section className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-end">
+          <div className="space-y-6">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-[#d4af37]">
+              Narrative Survival Drama
+            </p>
+            <div className="space-y-4">
+              <h1 className="max-w-4xl text-5xl leading-none text-[#f7efe3] sm:text-6xl lg:text-7xl">
+                Joy Luck Journey
+              </h1>
+              <p className="max-w-2xl text-lg leading-8 text-white/72 sm:text-[21px]">
+                Step into each daughter&rsquo;s story and navigate family pressure, cultural inheritance, and the cost of silence.
               </p>
+            </div>
+          </div>
 
-              <div className="border-t border-white/10 pt-4 mt-auto mb-6">
-                <p className="text-[12px] font-serif italic text-[#d4af37] mb-2 flex items-center gap-1.5">
-                  <Sparkles size={12} /> {char.abilityName}
-                </p>
-                <p className="text-[11px] text-white/50 leading-tight">
-                  {char.abilityDesc}
-                </p>
+          <div className="panel rounded-[24px] p-6 sm:p-8">
+            <div className="grid gap-5 sm:grid-cols-3">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-white/40">Playable Arcs</p>
+                <p className="mt-2 font-serif text-3xl text-[#d4af37]">{CHARACTERS.length}</p>
               </div>
-
-              <div className="flex items-center justify-between text-white/40 group-hover:text-[#d4af37] transition-colors border-t border-white/10 pt-4">
-                <span className="text-[11px] uppercase tracking-[1px] font-bold">Play Story</span>
-                <ArrowRight size={16} />
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-white/40">Story Worlds</p>
+                <p className="mt-2 font-serif text-3xl text-[#d4af37]">5</p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-white/40">Core Tension</p>
+                <p className="mt-2 text-sm leading-6 text-white/70">Identity versus expectation.</p>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        </section>
+
+        <section className="grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-4">
+          {CHARACTERS.map((character) => {
+            const accentStyle = {
+              '--accent-color': character.themeColor,
+            } as CSSProperties;
+
+            return (
+              <button
+                key={character.id}
+                type="button"
+                onClick={() => onSelect(character)}
+                className="panel group relative flex h-full appearance-none flex-col overflow-hidden rounded-[24px] p-0 text-left transition-all duration-300 hover:-translate-y-1.5 hover:border-white/25 focus:outline-none"
+                style={accentStyle}
+              >
+                <div className="h-1 w-full" style={{ background: character.themeColor }} />
+                <div className="flex h-full flex-col p-6 sm:p-7">
+                  <div className="mb-6 flex items-start justify-between gap-4">
+                    <div
+                      className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border text-2xl font-serif"
+                      style={{
+                        color: character.themeColor,
+                        borderColor: `${character.themeColor}80`,
+                        background: `${character.themeColor}18`,
+                        boxShadow: `0 0 24px ${character.themeColor}22`,
+                      }}
+                    >
+                      {character.name[0]}
+                    </div>
+
+                    <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-white/45">
+                      {character.abilityName}
+                    </div>
+                  </div>
+
+                  <div className="mb-5">
+                    <h2 className="text-[29px] leading-none text-white sm:text-[32px]">{character.name}</h2>
+                    <p className="mt-3 text-[11px] uppercase tracking-[0.25em]" style={{ color: character.themeColor }}>
+                      {character.role}
+                    </p>
+                  </div>
+
+                  <p className="mb-6 text-[15px] leading-7 text-white/72">
+                    {character.description}
+                  </p>
+
+                  <div className="mb-6 rounded-[18px] border border-white/10 bg-black/18 p-4">
+                    <div className="mb-2 flex items-center gap-2 text-sm" style={{ color: character.themeColor }}>
+                      <Sparkles size={14} />
+                      <span className="font-medium">{character.abilityName}</span>
+                    </div>
+                    <p className="text-[13px] leading-6 text-white/60">{character.abilityDesc}</p>
+                  </div>
+
+                  <div className="space-y-2 border-t border-white/10 pt-5">
+                    {character.tasks.map((task) => (
+                      <p key={task} className="text-[12px] leading-6 text-white/56">
+                        {task}
+                      </p>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5 text-white/45 transition-colors group-hover:text-white">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.24em]">Begin Story</span>
+                    <ArrowRight size={16} />
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </section>
       </div>
     </div>
   );

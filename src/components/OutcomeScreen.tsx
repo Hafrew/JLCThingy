@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { GameState, Choice } from '../types';
 import { motion } from 'motion/react';
 import { ArrowRight, RotateCcw } from 'lucide-react';
+import { getEndingSummary } from '../gameLogic';
+import { Choice, GameState } from '../types';
 
 interface OutcomeScreenProps {
   choice: Choice | null;
@@ -11,67 +11,80 @@ interface OutcomeScreenProps {
 }
 
 export default function OutcomeScreen({ choice, gameState, onContinue, onRestart }: OutcomeScreenProps) {
-  const { isGameOver, gameOutcome, stats } = gameState;
-  
+  const { isGameOver, gameOutcome, stats, currentCharacter } = gameState;
+
   if (!choice && isGameOver) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[var(--color-bg)] relative z-10 text-white">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="max-w-2xl text-center space-y-8 bg-[var(--color-glass)] p-12 border border-[#d4af37]/20 rounded-[12px] backdrop-blur-[10px] shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-        >
-          <h1 className="font-serif text-4xl md:text-6xl font-normal text-[#d4af37]">
-            {gameOutcome === 'win' ? 'Understanding Found' : 'Connection Lost'}
-          </h1>
-          <p className="font-serif italic text-xl text-white/80">
-            {gameOutcome === 'win' 
-              ? "You balanced your identity while honoring the past. The bridge between generations is built." 
-              : "The weight of expectations and miscommunication fractured the bond beyond repair."}
-          </p>
-          
-          <div className="flex justify-center gap-10 pt-8 border-t border-white/10">
-             <div className="text-center">
-                <span className="block text-[11px] uppercase tracking-[1px] text-white/50 mb-2">Final Identity</span>
-                <span className="font-serif text-3xl text-[#a78bfa]">{stats.identity}%</span>
-             </div>
-             <div className="text-center">
-                <span className="block text-[11px] uppercase tracking-[1px] text-white/50 mb-2">Final Bond</span>
-                <span className="font-serif text-3xl text-[#fb7185]">{stats.bond}%</span>
-             </div>
-          </div>
-
-          <button 
-            onClick={onRestart}
-            className="mt-8 bg-[#d4af37]/10 border border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#140d0b] transition-all rounded-[6px] px-[30px] py-[16px] uppercase tracking-[1.5px] text-[12px] font-bold inline-flex items-center gap-2"
+      <div className="relative z-10 min-h-screen px-4 py-8 text-white sm:px-6">
+        <div className="app-shell flex min-h-[calc(100vh-4rem)] items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="panel w-full max-w-3xl rounded-[30px] p-8 text-center sm:p-12"
           >
-            <RotateCcw size={16} /> Play Again
-          </button>
-        </motion.div>
+            <p className="text-[11px] uppercase tracking-[0.3em] text-[#d4af37]">
+              {currentCharacter?.name}
+            </p>
+            <h1 className="mt-5 text-5xl leading-none text-[#f8efe0] sm:text-6xl">
+              {gameOutcome === 'win' ? 'Understanding Found' : 'Connection Lost'}
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-[20px] leading-8 text-white/78">
+              {getEndingSummary(gameState)}
+            </p>
+
+            <div className="mt-10 grid gap-4 border-t border-white/10 pt-8 sm:grid-cols-3">
+              <div className="rounded-[18px] border border-white/10 bg-white/[0.04] px-4 py-5">
+                <p className="text-[10px] uppercase tracking-[0.24em] text-white/40">Identity</p>
+                <p className="mt-3 font-serif text-4xl text-[#a78bfa]">{stats.identity}%</p>
+              </div>
+              <div className="rounded-[18px] border border-white/10 bg-white/[0.04] px-4 py-5">
+                <p className="text-[10px] uppercase tracking-[0.24em] text-white/40">Bond</p>
+                <p className="mt-3 font-serif text-4xl text-[#fb7185]">{stats.bond}%</p>
+              </div>
+              <div className="rounded-[18px] border border-white/10 bg-white/[0.04] px-4 py-5">
+                <p className="text-[10px] uppercase tracking-[0.24em] text-white/40">Voice</p>
+                <p className="mt-3 font-serif text-4xl text-[#34d399]">{stats.communication}%</p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={onRestart}
+              className="mt-10 inline-flex appearance-none items-center gap-2 rounded-full border border-[#d4af37] bg-[#d4af37]/10 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#f7d97a] transition-colors hover:bg-[#d4af37] hover:text-[#140d0b]"
+            >
+              <RotateCcw size={16} />
+              Play Again
+            </button>
+          </motion.div>
+        </div>
       </div>
     );
   }
 
-  // Normal turn outcome
   if (choice) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[var(--color-bg)] relative z-10 text-[var(--color-ink)]">
-         <motion.div 
-            initial={{ opacity: 0, y: 10 }}
+      <div className="relative z-10 min-h-screen px-4 py-8 text-white sm:px-6">
+        <div className="app-shell flex min-h-[calc(100vh-4rem)] items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="max-w-2xl bg-[var(--color-glass)] border border-white/10 rounded-[12px] p-[40px] backdrop-blur-[10px] shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-center relative z-20"
+            className="panel w-full max-w-2xl rounded-[28px] p-8 text-center sm:p-10"
           >
-            <p className="font-serif text-[20px] leading-[1.6] text-white mb-8">
+            <p className="text-[11px] uppercase tracking-[0.3em] text-[#d4af37]">Story Consequence</p>
+            <p className="mt-6 text-[21px] leading-8 text-white/82">
               {choice.outcomeText}
             </p>
-            
-            <button 
+
+            <button
+              type="button"
               onClick={onContinue}
-              className="mt-4 bg-white/[0.03] border border-white/10 hover:bg-[#d4af37]/10 hover:border-[#d4af37] hover:text-white text-white/80 transition-all rounded-[6px] px-[20px] py-[14px] uppercase tracking-[1.5px] text-[12px] font-bold inline-flex items-center gap-2"
+              className="mt-10 inline-flex appearance-none items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/75 transition-colors hover:border-[#d4af37]/55 hover:bg-[#d4af37]/10 hover:text-white"
             >
-              {isGameOver ? 'See Results' : 'Continue'} <ArrowRight size={16} />
+              {isGameOver ? 'See Results' : 'Continue'}
+              <ArrowRight size={16} />
             </button>
           </motion.div>
+        </div>
       </div>
     );
   }
