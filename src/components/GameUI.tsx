@@ -243,16 +243,21 @@ export default function GameUI({ gameState, onChoiceMade, onQuit }: GameUIProps)
             <div className="panel rounded-[24px] p-6">
               <div className="flex items-start gap-4">
                 <div
-                  className="flex shrink-0 items-center justify-center rounded-full border text-3xl font-serif"
+                  className="relative flex shrink-0 items-center justify-center overflow-hidden rounded-[18px] border text-center"
                   style={{
                     width: 72,
                     height: 72,
                     color: currentCharacter.themeColor,
                     borderColor: `${currentCharacter.themeColor}88`,
-                    background: `${currentCharacter.themeColor}18`,
+                    background: `linear-gradient(145deg, ${currentCharacter.themeColor}2e, rgba(255,255,255,0.04))`,
                   }}
+                  aria-label={`Visual representation: ${currentCharacter.visualDescription}`}
                 >
-                  {currentCharacter.name[0]}
+                  <div className="absolute inset-x-3 top-3 h-7 rounded-full border border-current opacity-55" />
+                  <div className="absolute bottom-3 h-7 w-9 rounded-t-full border border-current bg-black/20 opacity-70" />
+                  <span className="relative z-10 mt-6 max-w-[52px] text-[8px] font-semibold uppercase leading-3 tracking-[0.1em]">
+                    {currentCharacter.visualSymbol}
+                  </span>
                 </div>
 
                 <div className="min-w-0">
@@ -265,6 +270,9 @@ export default function GameUI({ gameState, onChoiceMade, onQuit }: GameUIProps)
               </div>
 
               <p className="mt-5 text-[14px] leading-7 text-white/64">{currentCharacter.description}</p>
+              <p className="mt-4 rounded-[16px] border border-white/8 bg-black/16 px-4 py-3 text-[12px] leading-6 text-white/52">
+                Visual: {currentCharacter.visualDescription}
+              </p>
             </div>
 
             <div className="panel rounded-[24px] p-6">

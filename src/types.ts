@@ -12,6 +12,8 @@ export interface Character {
   name: string;
   role: string;
   description: string;
+  visualSymbol: string;
+  visualDescription: string;
   abilityName: string;
   abilityDesc: string;
   baseStats: BaseStats;

@@ -6,6 +6,8 @@ export const CHARACTERS: Character[] = [
     name: 'Jing-Mei "June" Woo',
     role: 'The bridge between generations',
     description: 'Tasked with taking her late mother\'s place at the mahjong table and traveling to China to meet her long-lost half-sisters.',
+    visualSymbol: 'Piano + Thread',
+    visualDescription: 'A gold-lit portrait framed by piano keys, a mahjong tile, and a red thread leading toward China.',
     abilityName: 'Inherited Memory',
     abilityDesc: 'Unlocks deeper understanding in key moments, giving access to hidden dialogue choices.',
     baseStats: { identity: 50, communication: 30, bond: 50, culture: 30 },
@@ -21,6 +23,8 @@ export const CHARACTERS: Character[] = [
     name: 'Waverly Jong',
     role: 'The strategist',
     description: 'A former child chess prodigy whose success strained her relationship with her proud, exacting mother.',
+    visualSymbol: 'Knight + Lantern',
+    visualDescription: 'A sharp chessboard silhouette with Chinatown market lanterns behind it, showing strategy and public pressure.',
     abilityName: 'Strategic Mind',
     abilityDesc: 'Can read hidden incentives and foresee the emotional cost of a move before committing.',
     baseStats: { identity: 80, communication: 50, bond: 30, culture: 50 },
@@ -36,6 +40,8 @@ export const CHARACTERS: Character[] = [
     name: 'Lena St. Clair',
     role: 'The observer',
     description: 'Passive and fearful of conflict, she lives inside careful silences that have turned her marriage into an unequal ledger.',
+    visualSymbol: 'Table + Ledger',
+    visualDescription: 'An uneven table beneath a split household ledger, representing imbalance disguised as fairness.',
     abilityName: 'Emotional Insight',
     abilityDesc: 'Detects hidden tensions before they harden into permanent damage.',
     baseStats: { identity: 30, communication: 30, bond: 50, culture: 30 },
@@ -51,6 +57,8 @@ export const CHARACTERS: Character[] = [
     name: 'Rose Hsu Jordan',
     role: 'The conflicted heart',
     description: 'Overwhelmed by choices, she yields to stronger voices until divorce forces her to decide whether she still has one of her own.',
+    visualSymbol: 'Roots + Papers',
+    visualDescription: 'Hardy weeds growing around divorce papers, showing a voice that survives pressure and grief.',
     abilityName: 'Inner Voice',
     abilityDesc: 'Can cut through fear and take a bold stance when silence would cost too much.',
     baseStats: { identity: 30, communication: 50, bond: 80, culture: 30 },
@@ -70,6 +78,49 @@ export const WORLDS: World[] = [
   { id: 'w4', level: 4, name: 'Reflection & Truth', description: 'Memory Echoes intensify. Reinterpreting the past.', theme: 'Dreamlike and faded.' },
   { id: 'w5', level: 5, name: 'Joy Luck Reunion', description: 'All choices converge. Final consequences.', theme: 'Warm, encompassing light.' },
   { id: 'w6', level: 6, name: 'Final Reckoning', description: 'A final boss encounter where only hard-won balance can carry you through.', theme: 'The story demands proof of who you have become.' },
+];
+
+export const HOW_TO_PLAY = [
+  'Choose one of the four daughters from The Joy Luck Club.',
+  'Read each story scene and pick the response that best balances identity, communication, family bond, and cultural balance.',
+  'Use character powers when they appear; some choices unlock memory threads or require high enough stats.',
+  'Advance through each world until the Final Reckoning boss stage.',
+];
+
+export const OBJECTIVE = 'The object of the game is to guide a daughter through family conflict, cultural misunderstanding, and inherited memory without losing her sense of self or her family connection.';
+
+export const WIN_CONDITION = 'To win, reach the final boss and choose the stat-gated response. You need strong enough Identity, Communication, Family Bond, and Cultural Balance to resolve the character arc instead of collapsing into silence, surrender, or conflict.';
+
+export const PROGRESS_SYSTEM = [
+  'World 1: Childhood Roots introduces the wound or lesson that shapes the character.',
+  'World 2: Cultural Divide tests how Chinese family expectations and American independence collide.',
+  'World 3: Fracture Points presents a major conflict where weak stats can block the healthiest response.',
+  'World 4: Reflection & Truth uses Memory Echo scenes to reinterpret the past.',
+  'World 5: Joy Luck Reunion asks the player to act from what they have learned.',
+  'World 6: Final Reckoning is the boss stage that measures whether the player built enough emotional balance to win.',
+];
+
+export const RUBRIC_OBSTACLES = [
+  {
+    title: 'Prodigy Pressure',
+    plotTie: 'June\'s piano lessons and recital conflict with Suyuan\'s dream of an exceptional daughter.',
+    challenge: 'Players must choose between obedience, rebellion, and honest communication while protecting both Identity and Family Bond.',
+  },
+  {
+    title: 'Dinner Table Translation',
+    plotTie: 'Waverly bringing Rich to dinner exposes cultural expectations he does not understand and criticism she fears from Lindo.',
+    challenge: 'Players must translate between cultures instead of turning the meal into embarrassment or a mother-daughter contest.',
+  },
+  {
+    title: 'The Marriage Ledger',
+    plotTie: 'Lena and Harold\'s split-expense marriage shows how a supposedly fair American arrangement can hide emotional inequality.',
+    challenge: 'Players must name the imbalance before politeness and passivity drain Identity and Communication.',
+  },
+  {
+    title: 'Divorce Papers',
+    plotTie: 'Rose faces Ted\'s expectation that she will quietly sign away the house and the marriage on his terms.',
+    challenge: 'Players must claim a voice and make a decision instead of letting fear or old guilt choose for her.',
+  },
 ];
 
 const JUNE_EVENTS: GameEvent[] = [
